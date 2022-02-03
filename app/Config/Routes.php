@@ -37,6 +37,19 @@ $routes->get('/simple', "SiteController::simple");
 $routes->get('/about', "SiteController::aboutUs");
 $routes->get('/contact', "SiteController::contact");
 
+$routes->get("/call-me/(:any)/(:any)", "SiteController::callMe/$1/$2");
+$routes->get("/query-param", "SiteController::queryParam");
+
+$routes->get('/simple-call', function(){
+    // echo "<h1>Welcome to OnlyFans</h1>";
+    return view("simple-call");
+});
+
+// raw queries
+$routes->get("/raw-insert", "SiteController::insertRaw");
+$routes->get("/raw-update", "SiteController::updateRaw");
+$routes->get("/raw-delete", "SiteController::deleteRaw");
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
