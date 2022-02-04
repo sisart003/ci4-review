@@ -49,6 +49,11 @@ $routes->get('/simple-call', function(){
 $routes->get("/raw-insert", "SiteController::insertRaw");
 $routes->get("/raw-update", "SiteController::updateRaw");
 $routes->get("/raw-delete", "SiteController::deleteRaw");
+$routes->get('/list-data', "SiteController::getData");
+$routes->get('/list-data2', "SiteController::getData2");
+$routes->get("/insert-data2", "SiteController::insertData2");
+$routes->get('/delete-data2', "SiteController::deleteData2");
+$routes->get('/updated-data2', "SiteController::updateData2");
 
 /*
  * --------------------------------------------------------------------

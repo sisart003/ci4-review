@@ -8,6 +8,97 @@
             $this->db = \Config\Database::connect();
         }
 
+        public function insertData2(){
+
+            $builder = $this->db->table("userz");
+
+            $data = [
+                [
+                    "name" => "Gam",
+                    "age" => 28,
+                    "email" => "Gam@gmail.com"
+                ],[
+                    "name" => "bry",
+                    "age" => 27,
+                    "email" => "bry@gmail.com"
+                ]
+                
+            ];
+
+            print_r($builder->insertBatch($data));
+
+        }
+
+        public function deleteData2(){
+
+            $builder = $this->db->table("userz");
+
+            $id = 10;
+
+            $builder->where([
+                "id" => $id
+            ]);
+
+            $builder->delete();
+
+            // Delete Operation
+            // print_r($builder->delete([
+            //     "id" => $id
+            // ]));
+
+            // echo $this->db->getLastQuery();
+
+        }
+
+        public function updateData2(){
+            $builder = $this->db->table("userz");
+            $updated_data = [
+                "name" => "Cheszie",
+                "age" => 27,
+                "email" => "Cheszie03@hotmail.com"
+            ];
+
+            // Update Method
+            // $builder->update($updated_data, [
+            //     "id" => 2
+            // ]);
+
+            $builder->where(["id" => 2])->set($updated_data)->update();
+
+            echo $this->db->getLastQuery();
+        }
+
+        public function getData2(){
+
+            $builder = $this->db->table("userz");
+
+            // Add WHERE condition
+
+            $builder = $builder->where(array(
+                "id" => 2,
+                "name" => "Chess"
+            ));
+
+            $data = $builder->get()->getRowArray();
+
+            echo "<pre>";
+            print_r($data);
+
+        }
+
+        public function getData(){
+            $data = $this->db->query("SELECT * FROM userz");
+            $result = $data->getResult();
+
+            if($result){
+                echo "<pre>";
+                print_r($result);
+            }else{
+                echo "Data not found";
+            }
+            
+        }
+
         // Insert Data using raw query
         public function insertRaw(){
 
