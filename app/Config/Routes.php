@@ -55,6 +55,12 @@ $routes->get("/insert-data2", "SiteController::insertData2");
 $routes->get('/delete-data2', "SiteController::deleteData2");
 $routes->get('/updated-data2', "SiteController::updateData2");
 
+$routes->get('/get-data3', 'SiteController::getData3');
+$routes->get("/insert-data3", 'SiteController::insertData3');
+$routes->get("/update-data3", 'SiteController::updateData3');
+$routes->get("/delete-data3", 'SiteController::deleteData3');
+
+$routes->get("/get-data4", 'SiteController::getData4');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

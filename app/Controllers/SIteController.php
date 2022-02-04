@@ -1,11 +1,96 @@
 <?php
 
     namespace App\Controllers;
+    use App\Models\UserModel;
     
     class SiteController extends BaseController{
 
         public function __construct(){
             $this->db = \Config\Database::connect();
+        }
+
+        public function getData4(){
+
+            $userModel = new UserModel();
+
+            // Find All Data
+            // $data = $userModel->findAll();
+            $data = $userModel->where(["id" => 5])->first();
+            // $userModel->select("id, name, email");
+            // $userModel->whereIn("id", array(
+            //     1, 2, 3, 4
+            // ));
+            // $userModel->orderBy("id", "Desc");
+            // $data = $userModel->findAll();
+            
+            echo "<pre>";
+            print_r($data);
+
+        }
+
+        public function deleteData3(){
+
+            $userModel = new UserModel();
+
+            $delete_id = 2;
+
+            // $userModel->where([
+            //     "id" => $delete_id
+            // ])->delete();
+
+            $userModel->delete([
+                "id" => $delete_id
+            ]);
+
+        }
+
+        public function updateData3(){
+
+            $userModel = new UserModel();
+
+            $update_data = array(
+                "name" => "Khrissandra",
+                "age" => 25,
+                "email" => "sandra@gmail.com"
+            );
+
+            $update_id = 9;
+
+            $userModel->where([
+                "id" => $update_id
+            ])->set($update_data)->update();
+
+            // $userModel->update($update_data, ["id" => $update_id]); // Not Working Temporary
+
+        }
+
+        public function insertData3(){
+
+            $userModel = new UserModel();
+
+            // Create Some data
+            $data = array(
+                "name" => "Khris",
+                "age" => 23,
+                "email" => "khris@yahoo.com"                
+            );
+
+            // Insert Data
+            $return_data = $userModel->insert($data);
+
+            echo "<pre>";
+            print_r($return_data);
+
+        }
+
+        public function getData3(){
+
+            $userModel = new UserModel();
+            $data = $userModel->findAll();
+
+            echo "<pre>";
+            print_r($data);
+
         }
 
         public function insertData2(){
