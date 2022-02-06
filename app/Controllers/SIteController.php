@@ -9,6 +9,83 @@
             $this->db = \Config\Database::connect();
         }
 
+        public function myFormData(){
+
+            if($this->request->getMethod() == "post"){
+                //print_r($this->request->getVar());
+                $rules = [
+                    "name" => "required|min_length[5]|max_length[10]",
+                    "age" => "required",
+                    "email" => "required"
+                ];
+
+                $messages = [
+                    "name" => [
+                        "required" => "Name is Needed",
+                        "min_length" => "KEKW"
+                    ],
+                    "age" => [
+                        "required" => "Age is Needed"
+                    ],
+                    "email" => [
+                        "required" => "Email is Needed"
+                    ]
+                ];
+
+                $validation = \Config\Services::validation();
+
+                if(!$this->validate($rules, $messages)){
+                    return view("my_form_data", [
+                        "validation" => $this->validator
+                    ]);
+                }else{
+                    print_r($this->request->getVar());
+                }
+            }
+
+            return view("my_form_data");
+
+        }
+
+        public function fileUpload(){
+
+            if($this->request->getMethod() == "post"){
+                
+                $file = $this->request->getFile("file");
+                $file_type = $file->getClientMimeType();
+                
+                $valid_file_types = array("image/png", "image/jpeg", "image/jpg");
+                $session = session();
+
+                if(in_array($file_type, $valid_file_types)){
+                    
+                    // Correct File uploading
+                    $name = $file->getName();
+                
+                    if($file->move("upload", $name)){
+                        $session->setFlashdata("success", "File Uploaded.");
+                    }else{
+                        $session->setFlashdata("error", "Failed to Upload.");
+                    }
+                
+                }else{
+
+                    //Invalid FileType
+                    $session->setFlashdata("error", "Invalid File");
+
+
+                }
+                // echo "<pre>";
+                // print_r($file);
+
+                return redirect()->to(site_url('/fileUpload'));
+
+            }
+
+            return view("file-upload");
+
+        }
+
         public function userSession(){
 
             $session = \Config\Services::session();

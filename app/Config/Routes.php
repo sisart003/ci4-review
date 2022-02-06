@@ -70,6 +70,8 @@ $routes->get("/getUsersData", "SiteController::getUsersData");
 
 $routes->get("/userSession", "SiteController::userSession");
 
+$routes->match(["get", "post"], "/fileUpload", "SiteController::fileUpload");
+$routes->match(["get", "post"], "/myFormData", "SiteController::myFormData");
 /*
  * --------------------------------------------------------------------
  * Additional Routing
