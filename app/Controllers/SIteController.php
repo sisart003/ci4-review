@@ -9,6 +9,99 @@
             $this->db = \Config\Database::connect();
         }
 
+        public function userSession(){
+
+            $session = \Config\Services::session();
+
+            // Settings of User Session
+            //$session->set("username", "chrishart");
+            // $session->set("userdata", array(
+            //     "name" => "Chris",
+            //     "email" => "chris@hotmail.com",
+            //     "id" => 69
+            // ));
+
+            // $session->push("userdata", array(
+            //     "age" => "25"
+            // ));
+
+            // Reading Session Value
+            // echo $session->get("username");
+            
+            // Removing a Session
+            // $session->remove("username");
+
+            $userdata = $session->get("userdata");
+
+            echo "<pre>";
+            print_r($userdata);
+
+            $session->destroy();
+
+        }
+
+        public function getUsersData(){
+
+            $userModel = new UserModel();
+
+            $data = $userModel->findAll();
+
+            // echo "<pre>";
+
+            // print_r($data);
+
+            return view("users-data", [
+                "users" => $userModel->paginate(2),
+                "pager" => $userModel->pager
+            ]);
+
+        }
+
+        public function listCall(){
+
+            print_my_message("Chrishart Estrada");
+
+            $spring = "Chrishart Estrada";
+
+            $length = find_my_length($spring);
+
+            echo "Length = " . $length;
+
+            $users = get_users();
+
+            echo "<pre>";
+            print_r($users);
+
+        }
+
+        public function myForm(){
+
+            $userModel = new UserModel();
+
+            if($this->request->getMethod() == "post"){
+                $data = $this->request->getVar();
+
+                // print_r($data);
+                $form_data = [
+                    "name" => $data['txt_name'],
+                    "age" => $data['txt_age'],
+                    "email" => $data['txt_email']
+                ];
+
+                $session = session();
+
+                if($userModel->insert($form_data)){
+                    $session->setFlashData("success", "Record Saved");
+                }else{
+                    $session->setFlashData("error", "Record Not Saved");
+                }
+
+                return redirect()->to(site_url("/myForm"));
+            }
+            return view("simple/myForm");
+
+        }
+
         public function getData4(){
 
             $userModel = new UserModel();

@@ -61,6 +61,15 @@ $routes->get("/update-data3", 'SiteController::updateData3');
 $routes->get("/delete-data3", 'SiteController::deleteData3');
 
 $routes->get("/get-data4", 'SiteController::getData4');
+
+$routes->match(["get", "post"], "/myForm", "SiteController::myForm");
+
+$routes->get("/listCall", "SiteController::listCall");
+
+$routes->get("/getUsersData", "SiteController::getUsersData");
+
+$routes->get("/userSession", "SiteController::userSession");
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
