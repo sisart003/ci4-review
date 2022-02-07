@@ -9,6 +9,59 @@
             $this->db = \Config\Database::connect();
         }
 
+        public function myToken(){
+
+            if($this->request->getMethod() == "post"){
+                echo "Hi, I am Here!";
+                $data = $this->request->getVar();
+                print_r($data);
+            }
+
+            return view("my-token");
+
+        }
+
+        public function fileRule(){
+
+            if($this->request->getMethod() == "post"){
+
+                $rules = [
+                    "filezz" => "uploaded[filezz]|max_size[filezz,1024]|is_image[filezz]"
+                ];
+
+                if(!$this->validate($rules)){
+                    return view("file-rule", [
+                        "validation" => $this->validator
+                    ]);
+                }else{
+                    $file = $this->request->getFile("filezz");
+                    echo "<pre>";
+                    print_r($file);
+                }
+
+                $file = $this->request->getFile("filezz");
+            }
+
+            return view("file-rule");
+
+        }
+
+        public function handleAjax(){
+
+            $data = $this->request->getVar();
+
+            echo json_encode(array(
+                "status" => 1,
+                "message" => "Successful Request",
+                "data" => $data
+            ));
+
+        }
+
+        public function ajaxMethod(){
+            return view("ajax-method");
+        }
+
         public function myFormData(){
 
             if($this->request->getMethod() == "post"){

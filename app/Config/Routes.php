@@ -72,6 +72,14 @@ $routes->get("/userSession", "SiteController::userSession");
 
 $routes->match(["get", "post"], "/fileUpload", "SiteController::fileUpload");
 $routes->match(["get", "post"], "/myFormData", "SiteController::myFormData");
+
+$routes->get("/ajaxReq", "SiteController::ajaxMethod");
+$routes->post("/handleAjax", "SiteController::handleAjax");
+
+$routes->match(["get", "post"], "/fileRule", "SiteController::fileRule");
+
+$routes->match(["get", "post"], "/myToken", "SiteController::myToken");
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
