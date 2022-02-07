@@ -80,6 +80,14 @@ $routes->match(["get", "post"], "/fileRule", "SiteController::fileRule");
 
 $routes->match(["get", "post"], "/myToken", "SiteController::myToken");
 
+
+$routes->match(['get', 'post'], '/register', 'User::register', ['filter' => 'noauth']);
+$routes->match(['get', 'post'], '/login', 'User::login', ['filter' => 'noauth']);
+$routes->get('/dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('/profile', 'User::profile', ['filter' => 'auth']);
+$routes->get('/logout', 'User::logout');
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
